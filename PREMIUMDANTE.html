@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PremiumDavid Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --accent: #E50914;
+  --accent2: #ff6b35;
+  --gold: #F5C518;
+  --slide-glow-color: rgba(229,9,20,0.6);
+  --slide-glow-color2: rgba(229,9,20,0.3);
+}
+[data-theme="dark"] {
+  --bg: #0f0f13;
+  --bg2: #16161d;
+  --bg3: #1e1e28;
+  --card: #1a1a24;
+  --card-hover: #22222e;
+  --border: rgba(255,255,255,0.07);
+  --text: #f0f0f5;
+  --text2: #a0a0b0;
+  --text3: #606070;
+  --nav-bg: rgba(15,15,19,0.95);
+  --badge-bg: rgba(229,9,20,0.12);
+  --input-bg: #1e1e28;
+  --shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+[data-theme="light"] {
+  --bg: #f4f4f8;
+  --bg2: #eaeaf0;
+  --bg3: #e0e0ea;
+  --card: #ffffff;
+  --card-hover: #f8f8fc;
+  --border: rgba(0,0,0,0.08);
+  --text: #0f0f1a;
+  --text2: #555566;
+  --text3: #9999aa;
+  --nav-bg: rgba(244,244,248,0.95);
+  --badge-bg: rgba(229,9,20,0.08);
+  --input-bg: #ededf5;
+  --shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  transition:background 0.3s,color 0.3s;
+}
+
+/* ── NAVBAR ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--nav-bg);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 1.5rem;
+  display:flex;align-items:center;gap:1rem;
+  height:62px;
+}
+.nav-logo{
+  font-size:1.25rem;font-weight:800;
+  letter-spacing:-0.02em;white-space:nowrap;
+  flex-shrink:0;
+}
+.nav-logo span{color:var(--accent);}
+.nav-search{
+  flex:1;max-width:400px;
+  display:flex;align-items:center;
+  background:var(--input-bg);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:0 0.9rem;
+  gap:0.5rem;
+}
+.nav-search input{
+  flex:1;border:none;background:transparent;
+  color:var(--text);font-family:'Outfit',sans-serif;
+  font-size:0.875rem;padding:0.55rem 0;outline:none;
+}
+.nav-search input::placeholder{color:var(--text3);}
+.nav-search svg{color:var(--text3);flex-shrink:0;}
+.nav-right{display:flex;align-items:center;gap:0.6rem;margin-left:auto;}
+.theme-btn{
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--text2);cursor:pointer;border-radius:8px;
+  width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:background 0.2s,color 0.2s;flex-shrink:0;
+}
+.theme-btn:hover{background:var(--card-hover);color:var(--text);}
+.nav-btn{
+  background:var(--accent);color:white;border:none;
+  padding:0.5rem 1.1rem;border-radius:8px;
+  font-family:'Outfit',sans-serif;font-size:0.82rem;
+  font-weight:600;cursor:pointer;white-space:nowrap;
+  transition:opacity 0.2s;
+}
+.nav-btn:hover{opacity:0.88;}
+
+/* ── CATEGORY BAR ── */
+.catbar{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:0 1.5rem;
+  display:flex;align-items:center;gap:0.25rem;
+  overflow-x:auto;scrollbar-width:none;
+}
+.catbar::-webkit-scrollbar{display:none;}
+.cat-item{
+  display:flex;align-items:center;gap:0.4rem;
+  padding:0.7rem 0.9rem;
+  color:var(--text2);font-size:0.82rem;font-weight:500;
+  white-space:nowrap;cursor:pointer;border-bottom:2px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+  text-decoration:none;
+}
+.cat-item:hover,.cat-item.active{color:var(--text);border-bottom-color:var(--accent);}
+.cat-item.active{color:var(--accent);font-weight:600;}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,var(--bg2) 0%,var(--bg) 100%);
+  border-bottom:1px solid var(--border);
+  padding:3rem 1.5rem 2.5rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 80% 50%,rgba(229,9,20,0.12) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:2rem;
+  position:relative;z-index:1;
+}
+@media(max-width:760px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-slider-wrap{display:none;}
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--badge-bg);border:1px solid rgba(229,9,20,0.25);
+  color:var(--accent);font-size:0.72rem;font-weight:700;
+  letter-spacing:0.15em;padding:0.3rem 0.8rem;border-radius:999px;
+  text-transform:uppercase;margin-bottom:1rem;
+}
+.hero h1{
+  font-size:clamp(1.8rem,5vw,3rem);font-weight:800;
+  line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem;
+}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero-sub{color:var(--text2);font-size:0.95rem;line-height:1.65;max-width:500px;margin-bottom:1.5rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.hero-tag{
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--text2);font-size:0.75rem;font-weight:500;
+  padding:0.3rem 0.75rem;border-radius:6px;
+}
+
+/* ── NETFLIX SLIDER ── */
+.hero-slider-wrap{
+  flex-shrink:0;
+  position:relative;
+  display:inline-block;
+}
+.glow-aura{
+  position:absolute;inset:-40px;border-radius:28px;
+  background:radial-gradient(ellipse at 50% 50%, var(--slide-glow-color) 0%, transparent 70%);
+  filter:blur(28px);opacity:0.85;z-index:0;
+  transition:background 1.1s ease,opacity 0.8s ease;
+  animation:auraPulse 3.5s infinite alternate ease-in-out;
+  pointer-events:none;
+}
+@keyframes auraPulse{0%{opacity:0.6;transform:scale(0.97)}100%{opacity:1;transform:scale(1.04)}}
+.glow-halo{
+  position:absolute;inset:-70px;border-radius:40px;
+  background:radial-gradient(ellipse at 50% 60%, var(--slide-glow-color2) 0%, transparent 65%);
+  filter:blur(50px);opacity:0.5;z-index:0;
+  transition:background 1.1s ease;
+  animation:haloPulse 5s infinite alternate ease-in-out;
+  pointer-events:none;
+}
+@keyframes haloPulse{0%{opacity:0.35;transform:scale(0.95)}100%{opacity:0.65;transform:scale(1.05)}}
+.netflix-mini{
+  width:480px;height:270px;
+  position:relative;border-radius:10px;overflow:hidden;
+  transition:box-shadow 1.1s ease;
+  box-shadow:0 0 0 1.5px var(--slide-glow-color),0 0 18px var(--slide-glow-color),0 0 40px var(--slide-glow-color2),0 22px 40px -10px rgba(0,0,0,0.9);
+  animation:borderPulse 3.5s infinite alternate ease-in-out;
+  z-index:1;
+}
+@media(max-width:1100px){.netflix-mini{width:360px;height:202px;}}
+@keyframes borderPulse{
+  0%{box-shadow:0 0 0 1px var(--slide-glow-color),0 0 10px var(--slide-glow-color),0 0 28px var(--slide-glow-color2),0 22px 40px -10px rgba(0,0,0,0.9)}
+  100%{box-shadow:0 0 0 2px var(--slide-glow-color),0 0 28px var(--slide-glow-color),0 0 60px var(--slide-glow-color2),0 22px 40px -10px rgba(0,0,0,0.9)}
+}
+#slider{position:relative;width:100%;height:100%;overflow:hidden;border-radius:8px;}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 0.55s cubic-bezier(0.2,0.9,0.4,1.1);pointer-events:none;}
+.slide.active{opacity:1;pointer-events:auto;}
+.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center 20%;transform:scale(1.04);transition:transform 7s ease;filter:brightness(0.92) contrast(1.05);}
+.slide.active .slide-bg{transform:scale(1);}
+.slide-bloom{position:absolute;inset:0;pointer-events:none;z-index:3;background:radial-gradient(ellipse at 60% 40%, var(--slide-glow-color) 0%, transparent 60%);opacity:0;transition:opacity 1s ease;mix-blend-mode:screen;}
+.slide.active .slide-bloom{opacity:0.35;animation:bloomBreath 4s infinite alternate ease-in-out;}
+@keyframes bloomBreath{0%{opacity:0.22}100%{opacity:0.42}}
+.slide-leak{position:absolute;inset:0;pointer-events:none;z-index:4;overflow:hidden;}
+.slide-leak::before{content:'';position:absolute;top:-30%;right:-10%;width:55%;height:160%;background:linear-gradient(135deg,transparent 40%,var(--slide-glow-color) 60%,transparent 75%);opacity:0;transform:rotate(-15deg) translateX(30px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.slide.active .slide-leak::before{opacity:0.12;transform:rotate(-15deg) translateX(0);animation:leakShimmer 6s infinite alternate ease-in-out;}
+@keyframes leakShimmer{0%{opacity:0.07;transform:rotate(-15deg) translateX(-5px)}100%{opacity:0.16;transform:rotate(-15deg) translateX(5px)}}
+.slide-floor{position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top, var(--slide-glow-color2) 0%, transparent 100%);opacity:0;pointer-events:none;z-index:2;transition:opacity 1s ease;mix-blend-mode:screen;}
+.slide.active .slide-floor{opacity:0.28;animation:floorPulse 4.5s infinite alternate ease-in-out;}
+@keyframes floorPulse{0%{opacity:0.18}100%{opacity:0.35}}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(7,7,7,.94) 0%,rgba(7,7,7,.65) 35%,rgba(7,7,7,.25) 68%,rgba(7,7,7,.55) 100%),linear-gradient(to top,rgba(7,7,7,.88) 0%,rgba(7,7,7,0) 58%);pointer-events:none;z-index:5;}
+.s-edge{position:absolute;z-index:12;pointer-events:none;}
+.s-edge-t,.s-edge-b{left:0;right:0;height:1.8px;}
+.s-edge-l,.s-edge-r{top:0;bottom:0;width:1.8px;}
+.s-edge-t{top:0;background:linear-gradient(90deg,transparent,var(--slide-glow-color) 18%,var(--slide-glow-color) 82%,transparent);opacity:0.9;animation:edgeGlow 3.5s infinite alternate;}
+.s-edge-b{bottom:0;background:linear-gradient(90deg,transparent,var(--slide-glow-color) 18%,var(--slide-glow-color) 82%,transparent);opacity:0.9;animation:edgeGlow 3.5s infinite alternate;}
+.s-edge-l{left:0;background:linear-gradient(180deg,transparent,var(--slide-glow-color) 18%,var(--slide-glow-color) 82%,transparent);opacity:0.9;animation:edgeGlow 3.5s infinite alternate;}
+.s-edge-r{right:0;background:linear-gradient(180deg,transparent,var(--slide-glow-color) 18%,var(--slide-glow-color) 82%,transparent);opacity:0.9;animation:edgeGlow 3.5s infinite alternate;}
+@keyframes edgeGlow{0%{opacity:0.55;filter:blur(0px)}100%{opacity:1;filter:blur(0.5px)}}
+.s-corner{position:absolute;width:12px;height:12px;z-index:13;pointer-events:none;}
+.s-corner::before,.s-corner::after{content:'';position:absolute;background:var(--slide-glow-color);}
+.s-corner::before{width:12px;height:1.2px;}
+.s-corner::after{width:1.2px;height:12px;}
+.c-tl{top:0;left:0}.c-tl::before,.c-tl::after{top:0;left:0}
+.c-tr{top:0;right:0}.c-tr::before{top:0;right:0}.c-tr::after{top:0;right:0}
+.c-bl{bottom:0;left:0}.c-bl::before{bottom:0;left:0}.c-bl::after{bottom:0;left:0}
+.c-br{bottom:0;right:0}.c-br::before{bottom:0;right:0}.c-br::after{bottom:0;right:0}
+.slide-content{position:absolute;left:max(16px,4%);top:50%;transform:translateY(-50%);max-width:56%;z-index:10;}
+.slide.active .slide-content > *{animation:fadeUpMini 0.4s ease forwards;opacity:0;}
+.slide.active .n-badge{animation-delay:0.03s}.slide.active .s-genre{animation-delay:0.06s}.slide.active .s-title{animation-delay:0.1s}.slide.active .s-meta{animation-delay:0.13s}.slide.active .s-desc{animation-delay:0.17s}.slide.active .s-cast{animation-delay:0.21s}
+@keyframes fadeUpMini{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.n-badge{display:flex;align-items:center;gap:5px;margin-bottom:6px;}
+.n-logo{font-family:sans-serif;font-size:1.15rem;font-weight:900;color:#e50914;text-shadow:0 0 6px rgba(229,9,20,0.75),0 0 12px rgba(229,9,20,0.75);line-height:1;}
+.n-sub{font-size:0.54rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,240,240,0.6);border-left:1px solid rgba(229,9,20,0.55);padding-left:6px;}
+.s-genre{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:#e50914;font-weight:600;margin-bottom:5px;text-shadow:0 0 5px rgba(229,9,20,0.75),0 0 10px rgba(229,9,20,0.75);}
+.s-title{font-size:1.3rem;line-height:1.05;letter-spacing:0.02em;color:white;font-weight:800;text-shadow:0 1px 12px black,0 0 20px rgba(255,255,255,0.15);margin-bottom:6px;white-space:nowrap;}
+.s-meta{display:flex;align-items:center;gap:6px;font-size:0.58rem;color:rgba(240,240,240,0.65);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;flex-wrap:wrap;}
+.s-meta .sep{width:2px;height:2px;border-radius:50%;background:rgba(240,240,240,0.45);}
+.s-meta .rt{color:#e50914;font-weight:700;font-size:0.65rem;text-shadow:0 0 6px rgba(229,9,20,0.75);}
+.s-desc{font-size:0.62rem;line-height:1.4;color:rgba(240,240,240,0.78);margin-bottom:8px;font-weight:400;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-shadow:0 1px 2px rgba(0,0,0,0.4);}
+.s-cast{font-size:0.52rem;color:rgba(240,240,240,0.5);letter-spacing:0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:98%;}
+.s-cast strong{color:rgba(240,240,240,0.72);font-weight:600;}
+.dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:4px;align-items:center;z-index:28;background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:20px;backdrop-filter:blur(2px);}
+.dot{width:3px;height:3px;border-radius:50%;background:rgba(240,240,240,0.55);cursor:pointer;transition:all 0.2s ease;}
+.dot.active{width:14px;border-radius:3px;background:var(--slide-glow-color);box-shadow:0 0 8px var(--slide-glow-color);transition:background 0.6s ease,box-shadow 0.6s ease,width 0.2s ease;}
+.netflix-mini::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:10px;box-shadow:inset 0 0 14px rgba(0,0,0,0.6);z-index:29;}
+
+/* ── SECTION ── */
+.section{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.section-title{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;gap:0.6rem;}
+.section-title::before{content:'';width:4px;height:18px;background:var(--accent);border-radius:2px;}
+
+/* ── PRODUCT GRID ── */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;}
+
+/* ── PRODUCT CARD ── */
+.product-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform 0.22s,box-shadow 0.22s,border-color 0.22s;cursor:pointer;}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(229,9,20,0.35);}
+.product-card-img{width:100%;height:160px;background:linear-gradient(135deg,#1a0a0a,#2d0d0d);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-size:3.5rem;}
+.product-card-img img{width:60%;object-fit:contain;}
+.product-card-img .shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 60%);}
+.card-badge{position:absolute;top:0.75rem;left:0.75rem;background:var(--accent);color:white;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;padding:0.2rem 0.6rem;border-radius:5px;text-transform:uppercase;}
+.product-card-body{padding:1.1rem;}
+.product-card-type{font-size:0.7rem;font-weight:600;letter-spacing:0.12em;color:var(--text3);text-transform:uppercase;margin-bottom:0.3rem;}
+.product-card-name{font-size:1rem;font-weight:700;margin-bottom:0.6rem;line-height:1.3;}
+.product-card-features{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;}
+.feat-tag{background:var(--bg3);color:var(--text2);font-size:0.68rem;font-weight:500;padding:0.2rem 0.55rem;border-radius:5px;}
+.product-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:0.75rem;border-top:1px solid var(--border);}
+.price-from{font-size:0.7rem;color:var(--text3);margin-bottom:0.1rem;}
+.price{font-size:1.3rem;font-weight:800;color:var(--accent);}
+.price span{font-size:0.8rem;font-weight:500;color:var(--text3);}
+.buy-btn{background:var(--accent);color:white;border:none;padding:0.55rem 1.1rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:opacity 0.2s,transform 0.15s;white-space:nowrap;}
+.buy-btn:hover{opacity:0.88;transform:scale(1.03);}
+
+/* ── TRUST BAR ── */
+.trust-bar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.trust-inner{max-width:1100px;margin:0 auto;padding:1.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+@media(max-width:640px){.trust-inner{grid-template-columns:1fr 1fr;}}
+.trust-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--card);border:1px solid var(--border);border-radius:10px;}
+.trust-icon{font-size:1.4rem;flex-shrink:0;}
+.trust-label{font-size:0.8rem;font-weight:600;margin-bottom:0.1rem;}
+.trust-sub{font-size:0.72rem;color:var(--text3);}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:18px;width:100%;max-width:480px;overflow:hidden;animation:popIn 0.3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 30px 80px rgba(0,0,0,0.5);}
+.modal-header{background:linear-gradient(135deg,#1a0505,#2d0a0a);padding:1.8rem;display:flex;align-items:center;gap:1rem;}
+.modal-icon{font-size:2.5rem;}
+.modal-header-text h3{font-size:1.3rem;font-weight:800;color:white;margin-bottom:0.2rem;}
+.modal-header-text p{font-size:0.8rem;color:rgba(255,255,255,0.55);}
+.modal-body{padding:1.5rem;}
+.plan-tabs{display:flex;gap:0.5rem;margin-bottom:1.25rem;}
+.plan-tab{flex:1;padding:0.6rem 0.5rem;text-align:center;background:var(--bg3);border:2px solid transparent;border-radius:10px;cursor:pointer;transition:all 0.2s;}
+.plan-tab:hover{border-color:rgba(229,9,20,0.4);}
+.plan-tab.active{background:rgba(229,9,20,0.12);border-color:var(--accent);}
+.plan-tab .tab-label{font-size:0.7rem;color:var(--text3);font-weight:500;margin-bottom:0.2rem;}
+.plan-tab .tab-price{font-size:1.15rem;font-weight:800;color:var(--text);}
+.plan-tab.active .tab-price{color:var(--accent);}
+.plan-tab .tab-save{font-size:0.65rem;font-weight:700;color:#22c55e;background:rgba(34,197,94,0.1);padding:0.1rem 0.4rem;border-radius:4px;display:inline-block;margin-top:0.2rem;}
+.selected-plan-info{background:var(--bg3);border-radius:10px;padding:1rem;margin-bottom:1.25rem;}
+.selected-plan-info .row{font-size:0.85rem;margin-bottom:0.4rem;}
+.selected-plan-info .row:last-child{margin-bottom:0;}
+.selected-plan-info .row span:first-child{color:var(--text2);}
+.selected-plan-info .row span:last-child{font-weight:600;color:var(--text);}
+.selected-plan-info .total{padding-top:0.6rem;border-top:1px solid var(--border);margin-top:0.6rem;}
+.selected-plan-info .total span:last-child{color:var(--accent);font-size:1.05rem;font-weight:800;}
+.gcash-btn{width:100%;padding:0.9rem;background:linear-gradient(135deg,#007AFF,#0055cc);color:white;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.6rem;transition:opacity 0.2s,transform 0.15s;margin-bottom:0.75rem;letter-spacing:0.02em;}
+.gcash-btn:hover{opacity:0.9;transform:translateY(-1px);}
+.gcash-btn img{height:22px;object-fit:contain;}
+.gcash-number-display{text-align:center;font-size:0.78rem;color:var(--text3);margin-bottom:1rem;}
+.gcash-number-display strong{color:var(--text2);}
+.modal-close-btn{width:100%;padding:0.7rem;background:transparent;border:1px solid var(--border);color:var(--text2);border-radius:10px;font-family:'Outfit',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:background 0.2s;}
+.modal-close-btn:hover{background:var(--bg3);}
+
+/* ── ANIMATIONS ── */
+@keyframes popIn{from{opacity:0;transform:scale(0.88) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp 0.5s ease both;}
+.fade-up:nth-child(1){animation-delay:0.05s;}
+.fade-up:nth-child(2){animation-delay:0.12s;}
+.fade-up:nth-child(3){animation-delay:0.19s;}
+.fade-up:nth-child(4){animation-delay:0.26s;}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">Premium<span>David</span></div>
+  <div class="nav-search">
+    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" placeholder="Search products..."/>
+  </div>
+  <div class="nav-right">
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
+    <button class="nav-btn" onclick="openGcash()">GCash Pay</button>
+  </div>
+</nav>
+
+<!-- CATEGORY BAR -->
+<div class="catbar">
+  <a class="cat-item active" href="#">🎬 Streaming</a>
+  <a class="cat-item" href="#"> Netflix</a>
+  <a class="cat-item" href="#"> HBOMax</a>
+  <a class="cat-item" href="#">📦 Bundles</a>
+  <a class="cat-item" href="#">⭐ Best Sellers</a>
+  <a class="cat-item" href="#">🔥 Hot Deals</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">🎞 Premium Streaming</div>
+      <h1>Watch Everything in<br/><em>Ultra HD Quality</em></h1>
+      <p class="hero-sub">Get Netflix Premium with 4K UHD, HDR & Dolby Atmos. Compatible with Smart TV, Tablet, Computer, and Phone. Reliable. Instant.</p>
+      <div class="hero-tags">
+        <span class="hero-tag">4K UHD</span>
+        <span class="hero-tag">HDR</span>
+        <span class="hero-tag">Dolby Atmos</span>
+        <span class="hero-tag">All Devices</span>
+      </div>
+    </div>
+
+    <!-- NETFLIX SLIDER — properly placed inside hero -->
+    <div class="hero-slider-wrap">
+      <div class="glow-halo"></div>
+      <div class="glow-aura"></div>
+      <div class="netflix-mini">
+        <div id="slider">
+          <div class="s-edge s-edge-t"></div>
+          <div class="s-edge s-edge-b"></div>
+          <div class="s-edge s-edge-l"></div>
+          <div class="s-edge s-edge-r"></div>
+          <div class="s-corner c-tl"></div>
+          <div class="s-corner c-tr"></div>
+          <div class="s-corner c-bl"></div>
+          <div class="s-corner c-br"></div>
+          <div class="dots" id="dots"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item fade-up">
+      <span class="trust-icon">✅</span>
+      <div><div class="trust-label">Premium Account</div><div class="trust-sub">Verified & guaranteed</div></div>
+    </div>
+    <div class="trust-item fade-up">
+      <span class="trust-icon">🔒</span>
+      <div><div class="trust-label">Full Warranty</div><div class="trust-sub">Until end of subscription</div></div>
+    </div>
+    <div class="trust-item fade-up">
+      <span class="trust-icon">⚡</span>
+      <div><div class="trust-label">Instant Delivery</div><div class="trust-sub">After payment confirmed</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Netflix Premium Plans</div>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card fade-up" onclick="openModal('shared')">
+      <div class="product-card-img">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1280px-Netflix_2015_logo.svg.png" alt="Netflix"/>
+        <div class="shine"></div>
+        <span class="card-badge">Shared</span>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-type">Netflix Premium • Shared</div>
+        <div class="product-card-name">Shared Account<span style="font-size:0.8rem;color:var(--text3);font-weight:500;"> (1 Device)</span></div>
+        <div class="product-card-features">
+          <span class="feat-tag">4K UHD</span>
+          <span class="feat-tag">Dolby Digital • HDR</span>
+        </div>
+       <span class="feat-tag">Spatial</span>
+        <div class="product-card-footer">
+          <div>
+            <div class="price-from">Starting from</div>
+            <div class="price">₱120 <span>/ month</span></div>
+          </div>
+          <button class="buy-btn">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-up" onclick="openModal('solo')">
+      <div class="product-card-img" style="background:linear-gradient(135deg,#0a1a2a,#0d2040);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1280px-Netflix_2015_logo.svg.png" alt="Netflix"/>
+        <div class="shine"></div>
+        <span class="card-badge" style="background:#F5C518;color:#000;">Solo</span>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-type">Netflix Premium • Solo</div>
+        <div class="product-card-name">Solo Profile <span style="font-size:0.8rem;color:var(--text3);font-weight:500;"> (1-2 Devices)</span></div>
+        <div class="product-card-features">
+          <span class="feat-tag">4K UHD</span>
+          <span class="feat-tag">Dolby Digital • HDR</span>
+         <span class="feat-tag">Spatial</span>
+          <span class="feat-tag">1-2 Devices</span>
+        </div>
+        <div class="product-card-footer">
+          <div>
+            <div class="price-from">Starting from</div>
+            <div class="price" style="color:var(--gold);">₱150 <span>/ month</span></div>
+          </div>
+          <button class="buy-btn" style="background:var(--gold);color:#000;">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-up" onclick="openModal('shared3')">
+      <div class="product-card-img" style="background:linear-gradient(135deg,#1a0a00,#3d1a00);">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1280px-Netflix_2015_logo.svg.png" alt="Netflix"/>
+        <div class="shine"></div>
+        <span class="card-badge" style="background:#ff6b35;">Premium • Most Popular</span>
+        
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">3-Months Shared Account<span style="font-size:0.8rem;color:var(--text3);font-weight:500;">(1 Device)</span>
+        </div>
+        <div class="product-card-features">
+          <span class="feat-tag">4K UHD</span>
+          <span class="feat-tag">Dolby Digital • HDR
+          </span>
+            <span Class="feat-tag">Spatial</span>
+          </span>
+          <span class="feat-tag">Save ₱20</span>
+          
+          <span class="feat-tag">Best Value</span>
+        </div>
+        <div class="product-card-footer">
+          <div>
+            <div class="price-from">Only</div>
+            <div class="price" style="color:#ff6b35;">₱280 <span>/ 3 months</span></div>
+          </div>
+          <button class="buy-btn" style="background:#ff6b35;">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-up" onclick="openModal('solo3')">
+      <div class="product-card-img" style="background:linear-gradient(135deg,#0a0a1a,#151530);">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1280px-Netflix_2015_logo.svg.png" alt="Netflix"/>
+        <div class="shine"></div>
+        <span class="card-badge" style="background:#7c3aed;">Solo x Premium × Best Deal</span>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-type">Netflix Premium • Solo</div>
+        <div class="product-card-name"> 3-Months Solo Profile <span style="font-size:0.8rem;color:var(--text3);font-weight:500;"> (1-2 Devices)</span></div>
+        <div class="product-card-features">
+          <span class="feat-tag">4K UHD</span>
+          <span class="feat-tag">Dolby Digital • HDR</span>
+         <span class="feat-tag">Spatial</span>
+          <span class="feat-tag">Best Value</span>
+        </div>
+        <div class="product-card-footer">
+          <div>
+            <div class="price-from">Only</div>
+            <div class="price" style="color:#a78bfa;">₱360 <span>/ 3 months</span></div>
+          </div>
+          <button class="buy-btn" style="background:#7c3aed;">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:radial-gradient(ellipse at 50% 100%,#2a0505 0%,#110202 40%,#0a0a0a 100%);padding:40px 16px 50px;">
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:600px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:10px 18px;">
+      <span style="font-size:20px;">💻</span>
+      <div><div style="color:#fff;font-weight:700;font-size:13px;">Computer</div><div style="color:#cc0000;font-size:11px;">Mac & Windows</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:10px 18px;">
+      <span style="font-size:20px;">📱</span>
+      <div><div style="color:#fff;font-weight:700;font-size:13px;">Mobile</div><div style="color:#cc0000;font-size:11px;">iOS & Android</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:10px 18px;">
+      <span style="font-size:20px;">📟</span>
+      <div><div style="color:#fff;font-weight:700;font-size:13px;">Tablet</div><div style="color:#cc0000;font-size:11px;">iPad & Android</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:10px 18px;">
+      <span style="font-size:20px;">🖥️</span>
+      <div><div style="color:#fff;font-weight:700;font-size:13px;">Smart TV</div><div style="color:#cc0000;font-size:11px;">Full support</div></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin:24px 0 10px;"><span style="color:#888;font-size:10px;letter-spacing:1px;text-transform:uppercase;">Payment Accepted</span></div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;">
+    <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:6px 14px;">
+      <svg width="38" height="22" viewBox="0 0 38 22" fill="none"><rect width="38" height="22" rx="4" fill="#1A1F71"/><text x="5" y="16" font-family="Arial" font-size="13" font-weight="900" font-style="italic" fill="white" letter-spacing="1">VISA</text></svg>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:6px 14px;">
+      <svg width="38" height="22" viewBox="0 0 38 22" fill="none"><rect width="38" height="22" rx="4" fill="#252525"/><circle cx="14" cy="11" r="7" fill="#EB001B"/><circle cx="24" cy="11" r="7" fill="#F79E1B"/><path d="M19 5.8A7 7 0 0 1 19 16.2A7 7 0 0 1 19 5.8Z" fill="#FF5F00"/></svg>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:6px 14px;">
+      <svg width="38" height="22" viewBox="0 0 38 22" fill="none"><rect width="38" height="22" rx="4" fill="#007DFF"/><text x="4" y="15" font-family="Arial" font-size="10" font-weight="900" fill="white">GCash</text></svg>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:28px;">
+    <span style="color:#888;font-size:10px;letter-spacing:1px;text-transform:uppercase;">Contact Us</span>
+    <div style="margin-top:10px;">
+      <a href="mailto:premiumdante01@gmail.com" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:8px 18px;text-decoration:none;">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M6 40h6V22L4 16v20a2 2 0 0 0 2 2z"/><path fill="#34A853" d="M36 40h6a2 2 0 0 0 2-2V16l-8 6z"/><path fill="#FBBC05" d="M36 10l-12 9-12-9H6l18 13.5L42 10z"/><path fill="#4285F4" d="M12 22v18h24V22L24 35.5z"/><path fill="#EA4335" d="M4 16l8 6V10H6a2 2 0 0 0-2 2z"/><path fill="#34A853" d="M44 12a2 2 0 0 0-2-2h-6v12l8-6z"/></svg>
+        <span style="color:#fff;font-size:12px;font-weight:600;">Gmail</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- PLAN MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-icon" id="modal-icon">🎬</div>
+      <div class="modal-header-text">
+        <h3 id="modal-title">Netflix Premium</h3>
+        <p id="modal-subtitle">Select your plan duration</p>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="plan-tabs" id="plan-tabs"></div>
+      <div class="selected-plan-info">
+        <div class="row"><span>Product</span><span id="info-product">—</span></div>
+        <div class="row"><span>Duration</span><span id="info-duration">—</span></div>
+        <div class="row total"><span style="font-weight:700;">Total</span><span id="info-total">—</span></div>
+      </div>
+      <button class="gcash-btn" onclick="openGcash()">
+        <img src="https://images.seeklogo.com/logo-png/52/2/gcash-logo-png_seeklogo-522261.png" alt="GCash"/>
+        Pay with GCash
+      </button>
+      <div class="gcash-number-display">Send to GCash: <strong>0931 917 4213</strong></div>
+      <button class="modal-close-btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── THEME ──
+function toggleTheme(){
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
+}
+
+// ── SLIDER DATA ──
+const MOVIES = [
+  { title:"Frankenstein", genre:"Gothic Horror", year:"2025", rt:"2h 29m", rating:"8.2", desc:"Guillermo del Toro's breathtaking reimagination — a brilliant scientist's monstrous ambition births life itself.", cast:"Oscar Isaac · Jacob Elordi · Mia Goth · C. Waltz", g1:"#1a1030",g2:"#050510",g3:"#3a1060", icon:"⚗", sym:"F", glowColor:"rgba(120,40,220,0.7)", glowColor2:"rgba(80,20,160,0.35)" },
+  { title:"Wake Up Dead Man", genre:"Mystery · Thriller", year:"2025", rt:"2h 22m", rating:"8.5", desc:"Benoit Blanc cracks an impossible murder at a small-town church with a very dark history.", cast:"Daniel Craig · Josh O'Connor · Glenn Close", g1:"#0a1828",g2:"#060a10",g3:"#1a3050", icon:"🔍", sym:"W", glowColor:"rgba(30,90,200,0.7)", glowColor2:"rgba(15,50,130,0.35)" },
+  { title:"Train Dreams", genre:"Drama", year:"2025", rt:"1h 52m", rating:"8.0", desc:"A logger in the Pacific Northwest lives a life of quiet depth as the Industrial Revolution transforms the world.", cast:"Joel Edgerton · Felicity Jones · Clifton Collins Jr.", g1:"#1a1008",g2:"#080604",g3:"#2a1a08", icon:"🌲", sym:"T", glowColor:"rgba(100,70,20,0.7)", glowColor2:"rgba(60,40,10,0.35)" },
+  { title:"Kneecap", genre:"Comedy · Music", year:"2024", rt:"1h 45m", rating:"7.9", desc:"Pure musical anarchy. The wild origin story of Belfast's hip-hop trio who rap in Irish.", cast:"Móglaí Bap · Mo Chara · DJ Próvaí", g1:"#0a2014",g2:"#040a06",g3:"#143020", icon:"🎵", sym:"K", glowColor:"rgba(20,180,80,0.7)", glowColor2:"rgba(10,100,45,0.35)" },
+  { title:"Happy Gilmore 2", genre:"Comedy", year:"2025", rt:"2h 00m", rating:"7.4", desc:"Happy is back on the green. Hockey-player-turned-golf-sensation returns with chaos and heart.", cast:"Adam Sandler · Christopher McDonald · Julie Bowen", g1:"#1a1800",g2:"#080700",g3:"#2a2800", icon:"⛳", sym:"H", glowColor:"rgba(210,180,20,0.7)", glowColor2:"rgba(140,120,10,0.35)" },
+  { title:"A House of Dynamite", genre:"Action · Thriller", year:"2025", rt:"2h 15m", rating:"8.1", desc:"Kathryn Bigelow returns with a taut thriller about power, survival, and devastating secrets.", cast:"Director: Kathryn Bigelow", g1:"#200808",g2:"#080404",g3:"#381010", icon:"💥", sym:"A", glowColor:"rgba(229,9,20,0.75)", glowColor2:"rgba(180,6,14,0.35)" },
+  { title:"Apex", genre:"Survival · Thriller", year:"2026", rt:"1h 58m", rating:"7.6", desc:"Free-solo climbing meets psychological dread — Theron & Egerton race against nature and worse.", cast:"Charlize Theron · Taron Egerton", g1:"#080c1e",g2:"#04060e",g3:"#101830", icon:"🏔", sym:"X", glowColor:"rgba(60,120,220,0.7)", glowColor2:"rgba(30,70,160,0.35)" },
+  { title:"RIP", genre:"Crime · Action", year:"2025", rt:"2h 05m", rating:"7.8", desc:"Miami cops uncover millions in seized cash, tearing their unit apart as trust evaporates.", cast:"Matt Damon · Ben Affleck · Steven Yeun", g1:"#1a0c04",g2:"#080402",g3:"#2a1408", icon:"💰", sym:"R", glowColor:"rgba(220,100,20,0.7)", glowColor2:"rgba(160,60,10,0.35)" },
+  { title:"The Woman in Cabin 10", genre:"Mystery · Thriller", year:"2025", rt:"1h 47m", rating:"7.2", desc:"A journalist aboard a luxury cruise witnesses something horrifying — no one believes her.", cast:"Keira Knightley · Guy Pearce · David Ajala", g1:"#040e1a",g2:"#020608",g3:"#08182a", icon:"🚢", sym:"C", glowColor:"rgba(20,140,200,0.7)", glowColor2:"rgba(10,80,140,0.35)" },
+  { title:"Nouvelle Vague", genre:"Drama · History", year:"2025", rt:"2h 18m", rating:"8.3", desc:"Richard Linklater's intimate portrait of the making of Godard's Breathless and the birth of the French New Wave.", cast:"Guillaume Marbeck · Zoey Deutch", g1:"#18141a",g2:"#080608",g3:"#281e2c", icon:"🎬", sym:"N", glowColor:"rgba(180,80,200,0.7)", glowColor2:"rgba(110,40,140,0.35)" }
+];
+
+function generatePoster(movie) {
+  const w=640, h=360;
+  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg${movie.sym}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${movie.g1}"/><stop offset="50%" stop-color="${movie.g2}"/><stop offset="100%" stop-color="${movie.g3}"/></linearGradient><radialGradient id="rg${movie.sym}" cx="65%" cy="40%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.07)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient></defs><rect width="${w}" height="${h}" fill="url(#bg${movie.sym})"/><rect width="${w}" height="${h}" fill="url(#rg${movie.sym})"/><text x="${w*.72}" y="${h*.52}" text-anchor="middle" dominant-baseline="middle" font-size="160" font-family="serif" fill="rgba(255,255,255,0.05)">${movie.sym}</text><text x="${w*.72}" y="${h*.42}" text-anchor="middle" font-size="72" fill="rgba(255,255,255,0.16)">${movie.icon}</text><text x="${w*.72}" y="${h*.82}" text-anchor="middle" font-size="28" font-family="sans-serif" fill="rgba(255,255,255,0.6)" letter-spacing="3">${movie.title.toUpperCase()}</text><text x="${w*.72}" y="${h*.93}" text-anchor="middle" font-size="18" fill="rgba(229,9,20,0.8)">${movie.year}</text></svg>`;
+}
+
+// Build slides
+const sliderContainer = document.getElementById('slider');
+MOVIES.forEach((movie, idx) => {
+  const slideDiv = document.createElement('div');
+  slideDiv.className = `slide ${idx===0?'active':''}`;
+  const encodedBg = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(generatePoster(movie))));
+  slideDiv.innerHTML = `
+    <div class="slide-bg" style="background-image:url('${encodedBg}');background-color:${movie.g2};background-size:cover;"></div>
+    <div class="slide-bloom"></div>
+    <div class="slide-leak"></div>
+    <div class="slide-floor"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="n-badge"><span class="n-logo">N</span><span class="n-sub">NOW STREAMING</span></div>
+      <div class="s-genre">${movie.genre}</div>
+      <div class="s-title">${movie.title}</div>
+      <div class="s-meta"><span>${movie.year}</span><span class="sep"></span><span>${movie.rt}</span><span class="sep"></span><span>⭐ <span class="rt">${movie.rating}</span></span></div>
+      <p class="s-desc">${movie.desc}</p>
+      <div class="s-cast"><strong>Cast:</strong> ${movie.cast}</div>
+    </div>`;
+  // Insert before the edge divs (which are first children)
+  sliderContainer.insertBefore(slideDiv, sliderContainer.querySelector('.s-edge-t'));
+});
+
+// Build dots
+const dotsContainer = document.getElementById('dots');
+MOVIES.forEach((_, idx) => {
+  const dot = document.createElement('div');
+  dot.className = `dot ${idx===0?'active':''}`;
+  dot.addEventListener('click', () => navigateToSlide(idx));
+  dotsContainer.appendChild(dot);
+});
+
+let currentIndex = 0, autoTimer = null;
+const glowAura = document.querySelector('.glow-aura');
+const glowHalo = document.querySelector('.glow-halo');
+
+function applyGlowColors(movie) {
+  document.documentElement.style.setProperty('--slide-glow-color', movie.glowColor);
+  document.documentElement.style.setProperty('--slide-glow-color2', movie.glowColor2);
+  glowAura.style.background = `radial-gradient(ellipse at 50% 50%, ${movie.glowColor} 0%, transparent 70%)`;
+  glowHalo.style.background = `radial-gradient(ellipse at 50% 60%, ${movie.glowColor2} 0%, transparent 65%)`;
+  const b = document.querySelector('.slide.active .slide-bloom');
+  if(b) b.style.background = `radial-gradient(ellipse at 60% 40%, ${movie.glowColor} 0%, transparent 60%)`;
+  const f = document.querySelector('.slide.active .slide-floor');
+  if(f) f.style.background = `linear-gradient(to top, ${movie.glowColor2} 0%, transparent 100%)`;
+}
+
+function navigateToSlide(targetIndex) {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  slides[currentIndex]?.classList.remove('active');
+  dots[currentIndex]?.classList.remove('active');
+  currentIndex = (targetIndex + MOVIES.length) % MOVIES.length;
+  slides[currentIndex]?.classList.add('active');
+  dots[currentIndex]?.classList.add('active');
+  applyGlowColors(MOVIES[currentIndex]);
+  if(autoTimer) clearInterval(autoTimer);
+  autoTimer = setInterval(() => navigateToSlide(currentIndex + 1), 6500);
+}
+
+// Touch support
+let touchStart = 0;
+const miniWrapper = document.querySelector('.netflix-mini');
+if(miniWrapper){
+  miniWrapper.addEventListener('touchstart', e => { touchStart = e.touches[0].clientX; }, {passive:true});
+  miniWrapper.addEventListener('touchend', e => {
+    const diff = e.changedTouches[0].clientX - touchStart;
+    if(Math.abs(diff) > 30) navigateToSlide(diff < 0 ? currentIndex + 1 : currentIndex - 1);
+  });
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowLeft'){ navigateToSlide(currentIndex-1); e.preventDefault(); }
+  else if(e.key==='ArrowRight'){ navigateToSlide(currentIndex+1); e.preventDefault(); }
+});
+
+navigateToSlide(0);
+
+// ── MODAL ──
+const plans = {
+  shared: {
+    icon:'🎬', title:'Netflix Premium 1 Device', subtitle:'Shared Account 1 Device',
+    tabs:[
+      {label:'1 Month', price:'₱120', duration:'1 Month', save:null},
+      {label:'2 Months', price:'₱200', duration:'2 Months', save:'Save ₱40'},
+      {label:'3 Months', price:'₱280', duration:'3 Months', save:'Save ₱80'},
+    ]
+  },
+  solo: {
+    icon:'📺', title:'Netflix Premium', subtitle:'Solo Profile (1–2 Devices)',
+    tabs:[
+      {label:'1 Month', price:'₱150', duration:'1 Month', save:null},
+      {label:'2 Months', price:'₱280', duration:'2 Months', save:'Save ₱20'},
+      {label:'3 Months', price:'₱360', duration:'3 Months', save:'Save ₱40'},
+    ]
+  },
+  shared3: {
+    icon:'🔥', title:'Netflix Premium', subtitle:'Shared Account · Best Value',
+    tabs:[{label:'3 Months', price:'₱280', duration:'3 Months', save:'Save ₱20'}]
+  },
+  solo3: {
+    icon:'⭐', title:'Netflix Premium', subtitle:'Solo Profile · Best Deal',
+    tabs:[{label:'3 Months', price:'₱360', duration:'3 Months', save:'Save ₱40'}]
+  },
+};
+
+let activeTab = 0, currentPlan = null;
+
+function openModal(type) {
+  currentPlan = plans[type];
+  activeTab = 0;
+  document.getElementById('modal-icon').textContent = currentPlan.icon;
+  document.getElementById('modal-title').textContent = currentPlan.title;
+  document.getElementById('modal-subtitle').textContent = currentPlan.subtitle;
+  renderTabs();
+  document.getElementById('modal').classList.add('open');
+}
+
+function renderTabs() {
+  const tabs = currentPlan.tabs;
+  document.getElementById('plan-tabs').innerHTML = tabs.map((t, i) => `
+    <div class="plan-tab ${i===activeTab?'active':''}" onclick="selectTab(${i})">
+      <div class="tab-label">${t.label}</div>
+      <div class="tab-price">${t.price}</div>
+      ${t.save ? `<div class="tab-save">${t.save}</div>` : ''}
+    </div>`).join('');
+  updateInfo();
+}
+
+function selectTab(i) { activeTab = i; renderTabs(); }
+
+function updateInfo() {
+  const t = currentPlan.tabs[activeTab];
+  document.getElementById('info-product').textContent = currentPlan.subtitle;
+  document.getElementById('info-duration').textContent = t.duration;
+  document.getElementById('info-total').textContent = t.price;
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function handleOverlayClick(e) { if(e.target.id==='modal') closeModal(); }
+
+function openGcash() {
+  window.location.href = 'gcash://send?mobile=09319174213';
+  setTimeout(() => window.open('https://www.gcash.com','_blank'), 1000);
+}
+</script>
+</body>
+</html>
