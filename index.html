@@ -53,8 +53,6 @@ body{
   min-height:100vh;
   transition:background 0.3s,color 0.3s;
 }
-
-/* ── NAVBAR ── */
 nav{
   position:sticky;top:0;z-index:100;
   background:var(--nav-bg);
@@ -103,7 +101,6 @@ nav{
 }
 .nav-btn:hover{opacity:0.88;}
 
-/* ── CATEGORY BAR ── */
 .catbar{
   background:var(--bg2);
   border-bottom:1px solid var(--border);
@@ -123,7 +120,6 @@ nav{
 .cat-item:hover,.cat-item.active{color:var(--text);border-bottom-color:var(--accent);}
 .cat-item.active{color:var(--accent);font-weight:600;}
 
-/* ── HERO ── */
 .hero{
   background:linear-gradient(135deg,var(--bg2) 0%,var(--bg) 100%);
   border-bottom:1px solid var(--border);
@@ -165,7 +161,6 @@ nav{
   padding:0.3rem 0.75rem;border-radius:6px;
 }
 
-/* ── NETFLIX SLIDER ── */
 .hero-slider-wrap{
   flex-shrink:0;
   position:relative;
@@ -254,16 +249,14 @@ nav{
 .dot.active{width:14px;border-radius:3px;background:var(--slide-glow-color);box-shadow:0 0 8px var(--slide-glow-color);transition:background 0.6s ease,box-shadow 0.6s ease,width 0.2s ease;}
 .netflix-mini::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:10px;box-shadow:inset 0 0 14px rgba(0,0,0,0.6);z-index:29;}
 
-/* ── SECTION ── */
+
 .section{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem;}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
 .section-title{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;gap:0.6rem;}
 .section-title::before{content:'';width:4px;height:18px;background:var(--accent);border-radius:2px;}
 
-/* ── PRODUCT GRID ── */
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;}
 
-/* ── PRODUCT CARD ── */
 .product-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform 0.22s,box-shadow 0.22s,border-color 0.22s;cursor:pointer;}
 .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(229,9,20,0.35);}
 .product-card-img{width:100%;height:160px;background:linear-gradient(135deg,#1a0a0a,#2d0d0d);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-size:3.5rem;}
@@ -281,8 +274,7 @@ nav{
 .price span{font-size:0.8rem;font-weight:500;color:var(--text3);}
 .buy-btn{background:var(--accent);color:white;border:none;padding:0.55rem 1.1rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:opacity 0.2s,transform 0.15s;white-space:nowrap;}
 .buy-btn:hover{opacity:0.88;transform:scale(1.03);}
-
-/* ── TRUST BAR ── */
+  
 .trust-bar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .trust-inner{max-width:1100px;margin:0 auto;padding:1.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
 @media(max-width:640px){.trust-inner{grid-template-columns:1fr 1fr;}}
@@ -291,7 +283,6 @@ nav{
 .trust-label{font-size:0.8rem;font-weight:600;margin-bottom:0.1rem;}
 .trust-sub{font-size:0.72rem;color:var(--text3);}
 
-/* ── MODAL ── */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem;}
 .modal-overlay.open{display:flex;}
 .modal{background:var(--card);border:1px solid var(--border);border-radius:18px;width:100%;max-width:480px;overflow:hidden;animation:popIn 0.3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 30px 80px rgba(0,0,0,0.5);}
@@ -323,7 +314,6 @@ nav{
 .modal-close-btn{width:100%;padding:0.7rem;background:transparent;border:1px solid var(--border);color:var(--text2);border-radius:10px;font-family:'Outfit',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:background 0.2s;}
 .modal-close-btn:hover{background:var(--bg3);}
 
-/* ── ANIMATIONS ── */
 @keyframes popIn{from{opacity:0;transform:scale(0.88) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fadeUp 0.5s ease both;}
@@ -335,7 +325,6 @@ nav{
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav>
   <div class="nav-logo">Premium<span>David</span></div>
   <div class="nav-search">
@@ -348,7 +337,6 @@ nav{
   </div>
 </nav>
 
-<!-- CATEGORY BAR -->
 <div class="catbar">
   <a class="cat-item active" href="#">🎬 Streaming</a>
   <a class="cat-item" href="#"> Netflix</a>
@@ -358,7 +346,6 @@ nav{
   <a class="cat-item" href="#">🔥 Hot Deals</a>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div>
@@ -373,7 +360,6 @@ nav{
       </div>
     </div>
 
-    <!-- NETFLIX SLIDER — properly placed inside hero -->
     <div class="hero-slider-wrap">
       <div class="glow-halo"></div>
       <div class="glow-aura"></div>
@@ -395,7 +381,6 @@ nav{
   </div>
 </div>
 
-<!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-inner">
     <div class="trust-item fade-up">
@@ -413,7 +398,6 @@ nav{
   </div>
 </div>
 
-<!-- PRODUCTS -->
 <div class="section">
   <div class="section-header">
     <div class="section-title">Netflix Premium Plans</div>
@@ -527,7 +511,6 @@ nav{
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer style="background:radial-gradient(ellipse at 50% 100%,#2a0505 0%,#110202 40%,#0a0a0a 100%);padding:40px 16px 50px;">
   <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:600px;margin:0 auto;">
     <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:10px 18px;">
@@ -570,7 +553,6 @@ nav{
   </div>
 </footer>
 
-<!-- PLAN MODAL -->
 <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
   <div class="modal">
     <div class="modal-header">
@@ -598,7 +580,6 @@ nav{
 </div>
 
 <script>
-// ── THEME ──
 function toggleTheme(){
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
@@ -606,7 +587,6 @@ function toggleTheme(){
   document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
 }
 
-// ── SLIDER DATA ──
 const MOVIES = [
   { title:"Frankenstein", genre:"Gothic Horror", year:"2025", rt:"2h 29m", rating:"8.2", desc:"Guillermo del Toro's breathtaking reimagination — a brilliant scientist's monstrous ambition births life itself.", cast:"Oscar Isaac · Jacob Elordi · Mia Goth · C. Waltz", g1:"#1a1030",g2:"#050510",g3:"#3a1060", icon:"⚗", sym:"F", glowColor:"rgba(120,40,220,0.7)", glowColor2:"rgba(80,20,160,0.35)" },
   { title:"Wake Up Dead Man", genre:"Mystery · Thriller", year:"2025", rt:"2h 22m", rating:"8.5", desc:"Benoit Blanc cracks an impossible murder at a small-town church with a very dark history.", cast:"Daniel Craig · Josh O'Connor · Glenn Close", g1:"#0a1828",g2:"#060a10",g3:"#1a3050", icon:"🔍", sym:"W", glowColor:"rgba(30,90,200,0.7)", glowColor2:"rgba(15,50,130,0.35)" },
@@ -625,7 +605,6 @@ function generatePoster(movie) {
   return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg${movie.sym}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${movie.g1}"/><stop offset="50%" stop-color="${movie.g2}"/><stop offset="100%" stop-color="${movie.g3}"/></linearGradient><radialGradient id="rg${movie.sym}" cx="65%" cy="40%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.07)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient></defs><rect width="${w}" height="${h}" fill="url(#bg${movie.sym})"/><rect width="${w}" height="${h}" fill="url(#rg${movie.sym})"/><text x="${w*.72}" y="${h*.52}" text-anchor="middle" dominant-baseline="middle" font-size="160" font-family="serif" fill="rgba(255,255,255,0.05)">${movie.sym}</text><text x="${w*.72}" y="${h*.42}" text-anchor="middle" font-size="72" fill="rgba(255,255,255,0.16)">${movie.icon}</text><text x="${w*.72}" y="${h*.82}" text-anchor="middle" font-size="28" font-family="sans-serif" fill="rgba(255,255,255,0.6)" letter-spacing="3">${movie.title.toUpperCase()}</text><text x="${w*.72}" y="${h*.93}" text-anchor="middle" font-size="18" fill="rgba(229,9,20,0.8)">${movie.year}</text></svg>`;
 }
 
-// Build slides
 const sliderContainer = document.getElementById('slider');
 MOVIES.forEach((movie, idx) => {
   const slideDiv = document.createElement('div');
@@ -649,7 +628,6 @@ MOVIES.forEach((movie, idx) => {
   sliderContainer.insertBefore(slideDiv, sliderContainer.querySelector('.s-edge-t'));
 });
 
-// Build dots
 const dotsContainer = document.getElementById('dots');
 MOVIES.forEach((_, idx) => {
   const dot = document.createElement('div');
@@ -686,7 +664,6 @@ function navigateToSlide(targetIndex) {
   autoTimer = setInterval(() => navigateToSlide(currentIndex + 1), 6500);
 }
 
-// Touch support
 let touchStart = 0;
 const miniWrapper = document.querySelector('.netflix-mini');
 if(miniWrapper){
@@ -696,8 +673,6 @@ if(miniWrapper){
     if(Math.abs(diff) > 30) navigateToSlide(diff < 0 ? currentIndex + 1 : currentIndex - 1);
   });
 }
-
-// Keyboard
 document.addEventListener('keydown', e => {
   if(e.key==='ArrowLeft'){ navigateToSlide(currentIndex-1); e.preventDefault(); }
   else if(e.key==='ArrowRight'){ navigateToSlide(currentIndex+1); e.preventDefault(); }
@@ -705,7 +680,6 @@ document.addEventListener('keydown', e => {
 
 navigateToSlide(0);
 
-// ── MODAL ──
 const plans = {
   shared: {
     icon:'🎬', title:'Netflix Premium 1 Device', subtitle:'Shared Account 1 Device',
